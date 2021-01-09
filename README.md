@@ -2,6 +2,8 @@
 
 PetFinder.my Adoption Prediction is a Kaggle challenge where the goal is to predict the adoptability of pets using their online profiles and metadata provided by PetFinder.my, Malaysia’s leading animal welfare platform.
 
+Supervisor: Erwan Scornet (École Polytechnique)
+
 # Data
 
  - Training data: 14993 pets
@@ -72,6 +74,8 @@ Target Feature: 'AdoptionSpeed'
 
 ### Histograms
 
+![alt text](https://github.com/hayashimasa/PetAdoption/blob/main/visualizations/rawdata_hist.png?raw=true)
+
 # Preprocessing
 
 ## Normalization
@@ -103,7 +107,9 @@ Categorical Features:
 
 Embedding Architecture: categorical features -> embedding -> concat -> fc(100) -> fc(100)
 
-Visualization with t-SNE
+### Visualization with t-SNE
+
+![alt text](https://github.com/hayashimasa/PetAdoption/blob/main/visualizations/catemb_3dtsne.png?raw=true)
 
 ## Textual Features
 
@@ -129,10 +135,15 @@ Used stratfied 5-fold to obtain indicies for training (11994/80%) and validation
 
 To generate a smaller dataset, stratified 5-fold was apply to one of the validations sets (2999/20%) to obtain smaller training (2399/16%) and validation (600/4%) sets
 
+![alt text](https://github.com/hayashimasa/PetAdoption/blob/main/visualizations/mse_loss.png?raw=true)
+
 # Result
 
 ## Metric
-Weighted Kappa
+
+Quadratic Weighted Kappa: 0.259
+
+![alt text](https://github.com/hayashimasa/PetAdoption/blob/main/visualizations/qwk.png?raw=true)
 
 # References
 1. Airbnb: GDBT -> Deep Learning
