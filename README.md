@@ -74,7 +74,7 @@ Target Feature: 'AdoptionSpeed'
 
 ### Histograms
 
-![alt text](https://github.com/hayashimasa/PetAdoption/blob/master/visualizations/rawdata_hist.png?raw=true)
+![alt text](https://github.com/hayashimasa/Pet_Adoption/blob/master/visualizations/rawdata_hist.png?raw=true)
 
 # Preprocessing
 
@@ -109,7 +109,7 @@ Embedding Architecture: categorical features -> embedding -> concat -> fc(100) -
 
 ### Visualization with t-SNE
 
-![alt text](https://github.com/hayashimasa/PetAdoption/blob/master/visualizations/catemb_3dtsne.png?raw=true)
+![alt text](https://github.com/hayashimasa/Pet_Adoption/blob/master/visualizations/catemb_3dtsne.png?raw=true)
 
 ## Textual Features
 
@@ -135,7 +135,7 @@ Used stratfied 5-fold to obtain indicies for training (11994/80%) and validation
 
 To generate a smaller dataset, stratified 5-fold was apply to one of the validations sets (2999/20%) to obtain smaller training (2399/16%) and validation (600/4%) sets
 
-![alt text](https://github.com/hayashimasa/PetAdoption/blob/master/visualizations/mse_loss.png?raw=true)
+![alt text](https://github.com/hayashimasa/Pet_Adoption/blob/master/visualizations/mse_loss.png?raw=true)
 
 # Result
 
@@ -143,7 +143,7 @@ To generate a smaller dataset, stratified 5-fold was apply to one of the validat
 
 Quadratic Weighted Kappa: 0.259
 
-![alt text](https://github.com/hayashimasa/PetAdoption/blob/master/visualizations/qwk.png?raw=true)
+![alt text](https://github.com/hayashimasa/Pet_Adoption/blob/master/visualizations/qwk.png?raw=true)
 
 # References
 1. Airbnb: GDBT -> Deep Learning
