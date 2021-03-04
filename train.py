@@ -60,6 +60,8 @@ def get_train_loader(batch_size, small, shuffle):
 
     Args:
         batch_size (int): batch size of each step
+        small (boolean): use small version of dataset
+        shuffle (boolean): shuffle index of when generating dataset
     """
     image_transform = transforms.Compose([
         transforms.Resize(256),
@@ -122,7 +124,7 @@ def train(model, data_loader, optimizer, criterion, epoch, device):
         optimizer (nn.optim.Optimizer): Optimization method
         criterion (nn.Loss): Loss function
         epoch (int): current epoch number
-        device ('string'): device to train model ('cuda' or 'cpu')
+        device (string): device to train model ('cuda' or 'cpu')
     """
     log_interval = 4
     running_loss = 0.
@@ -155,7 +157,7 @@ def validate(model, data_loader, criterion, device):
         model (nn.Module): model to validate
         data_loader (DataLoader): data iterator
         criterion (nn.Loss): Loss function
-        device ('string'): device to train model ('cuda' or 'cpu')
+        device (string): device to train model ('cuda' or 'cpu')
     """
     model.eval()
     loss = 0.
@@ -209,7 +211,6 @@ def initialize_model(args, dataset):
                 'kappa': None,
                 'epoch': 0
             }
-
         }
     }
     return model_dict

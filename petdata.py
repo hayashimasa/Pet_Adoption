@@ -33,6 +33,7 @@ class PetDataset(Dataset):
         n_splits (int): number of groups to split data into
         indicies (list(int)): indicies of training and testing sets
         small (bool): use a small portion of data
+        image_transform (torchvision.transforms): image transformations
         oe (object): ordinal encoder from training set
     """
 
@@ -140,7 +141,7 @@ class PetDataset(Dataset):
         """Reorganize data for training
 
         Args:
-            df (DataFrame): data to reorganize
+            X (DataFrame): data to reorganize
         """
         pet_imname = defaultdict(list)
         for imname in os.listdir(self.image_path):

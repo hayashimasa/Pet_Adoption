@@ -5,6 +5,9 @@ class Aggregator(nn.Module):
     """Model for aggregating all input features
 
     Args:
+        cat (nn.Module): categorical embedding model
+        cont (nn.Module): continuous encoding model
+        img (nn.Module): image encoding model
     """
 
     def __init__(self, cat, cont, img, h_dim=100):

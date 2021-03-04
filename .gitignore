@@ -8,4 +8,5 @@ test*/
 *.sublime*
 *.zip
 test.*
+report/
 

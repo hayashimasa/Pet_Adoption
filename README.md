@@ -1,6 +1,6 @@
 # Introduction
 
-PetFinder.my Adoption Prediction is a Kaggle challenge where the goal is to predict the adoptability of pets using their online profiles and metadata provided by PetFinder.my, Malaysia’s leading animal welfare platform.
+[PetFinder.my Adoption Prediction](https://www.kaggle.com/c/petfinder-adoption-prediction) is a Kaggle challenge where the goal is to predict the adoptability of pets using their online profiles and metadata provided by PetFinder.my, Malaysia’s leading animal welfare platform.
 
 Supervisor: Erwan Scornet (École Polytechnique)
 
