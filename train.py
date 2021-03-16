@@ -11,8 +11,9 @@ from torchvision import transforms
 import lightgbm as lgb
 
 from petdata import PetDataset
-from embedding import Categorical_Embedding
-from encoder import Continuous_Encoder, Image_Encoder
+from encoder import (
+    Categorical_Embedding, Continuous_Encoder, Image_Encoder, Text_Encoder
+)
 from NN import Aggregator
 from metric import quadratic_weighted_kappa
 
@@ -43,6 +44,18 @@ def parse_args():
     parser.add_argument(
         '--model', type=str, default=None,
         help='model to retrain'
+    )
+    parser.add_argument(
+        '--no-tab', action='store_true', default=False,
+        help='disable tabular module'
+    )
+    parser.add_argument(
+        '--no-img', action='store_true', default=False,
+        help='disable image module'
+    )
+    parser.add_argument(
+        '--no-text', action='store_true', default=False,
+        help='disable text module'
     )
     parser.add_argument(
         '--small', action='store_true', default=False,
@@ -197,9 +210,19 @@ def initialize_model(args, dataset):
     # Initialize model checkpoint
     model_dict = {
         'total_epoch': args.epochs,
-        'in_dim': {'cont': dataset.cont_dim, 'cat': feature_emb},
-        'out_dim': {'cat': 100, 'cont': 5, 'img': 500},
+        'in_dim': {
+            'cont': dataset.cont_dim,
+            'cat': feature_emb,
+            'text': dataset.text_dim
+        },
+        'out_dim': {'cat': 100, 'cont': 5, 'img': 500, 'text': 100},
         'cat_enc': dataset.oe,
+        'models': {
+            'cat': True if not args.no_tab else False,
+            'cont': True if not args.no_tab else False,
+            'img': True if not args.no_img else False,
+            'text': True if not args.no_text else False,
+        },
         'model_state_dict': None,
         'optimizer_state_dict': None,
         'train_loss': list(),
@@ -225,13 +248,20 @@ def get_model(args, dataset):
     cat = Categorical_Embedding(
         model_dict['in_dim']['cat'],
         model_dict['out_dim']['cat']
-    )
+    ) if model_dict['models']['cat'] else None
     cont = Continuous_Encoder(
         model_dict['in_dim']['cont'],
         model_dict['out_dim']['cont']
+    ) if model_dict['models']['cont'] else None
+    img = (
+        Image_Encoder(model_dict['out_dim']['img'])
+        if model_dict['models']['img'] else None
     )
-    img = Image_Encoder(model_dict['out_dim']['img'])
-    model = Aggregator(cat, cont, img)
+    text = (
+        Text_Encoder(model_dict['out_dim']['text'])
+        if model_dict['models']['text'] else None
+    )
+    model = Aggregator(cat, cont, img, text)
     optimizer = optim.Adam(model.parameters(), args.lr)
     # optimizer = optim.SparseAdam(list(model.parameters()), args.lr)
     if args.model:
@@ -265,6 +295,7 @@ if __name__ == '__main__':
     model_name += '_small' if args.small else ''
     print(model_name)
     pprint(model_dict)
+    print(model)
     for epoch in range(start_epoch, n_epoch+1):
         train_loss = train(
             model, train_loader, optimizer, criterion, epoch, device
