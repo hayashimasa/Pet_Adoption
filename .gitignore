@@ -9,4 +9,6 @@ test*/
 *.zip
 test.*
 report/
+.vector_cache/
+embedding.py/
 
