@@ -145,6 +145,8 @@ def train(model, data_loader, optimizer, criterion, epoch, device):
     model.train()
     for step, (sample, target) in enumerate(data_loader):
         X, y = sample, target.view(-1, 1)
+        X = {name: model.to(device) for name, model in X.items()}
+        y = y.to(device)
         y_pred = model(X)
         loss = criterion(y_pred, y)
         optimizer.zero_grad()
@@ -179,6 +181,8 @@ def validate(model, data_loader, criterion, device):
     with torch.no_grad():
         for step, (sample, target) in enumerate(data_loader):
             X, y = sample, target.view(-1, 1)
+            X = {name: model.to(device) for name, model in X.items()}
+            y = y.to(device)
             y_pred = model(X)
             loss += criterion(y_pred, y).item() * y.shape[0] / n
             kappa += quadratic_weighted_kappa(y_pred, y) * y.shape[0] / n
@@ -285,6 +289,7 @@ if __name__ == '__main__':
         oe=train_loader.dataset.oe
     )
     model, optimizer, model_dict = get_model(args, train_loader.dataset)
+    model = model.to(device)
     # print(model)
     criterion = nn.MSELoss()
 
