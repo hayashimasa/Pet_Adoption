@@ -207,7 +207,6 @@ def initialize_model(args, dataset):
         ('Health', 2),
         ('State', 5),
         ('RescuerID', 100),
-        ('PetID', 100)
     ])
     cat_dim = dataset.cat_dim
     feature_emb = [(cat_dim[col], e_dim) for col, e_dim in emb_dim.items()]
