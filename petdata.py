@@ -67,7 +67,7 @@ class PetDataset(Dataset):
         self.col_g = ['MaturitySize'] if not col_g else col_g
         self.col_cat = [
             c for c in self.df.columns
-            if c not in self.col_txt + self.col_cont + [target]
+            if c not in self.col_txt + self.col_cont + [target, 'PetID']
         ]
         self.target = target
         # Setup data for training
