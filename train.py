@@ -293,6 +293,9 @@ if __name__ == '__main__':
     model_dict['total_epoch'] = n_epoch
     model_name = '_'.join(['NN', f'e{n_epoch}', f'lr{args.lr:.0e}'])
     model_name += '_small' if args.small else ''
+    for name, use_model in model_dict['models'].items():
+        if not use_model:
+            model_name += f'_no_{name}'
     print(model_name)
     pprint(model_dict)
     print(model)
